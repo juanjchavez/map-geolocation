@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script src="./index.js"></script>
+</head>
+<body>
+
+  <form action="#">
+    <div id="rfmap"></div>
+
+    <input type="text" id="rfgeoaddress" name="rfgeoaddress">
+  </form>
+    
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBD4J1Nt_O_0vndWt-97AASK5hHfVwY1nY&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
+</body>
+</html>
