@@ -53,45 +53,53 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   setMarker(map, managuaPos);
 }
 /**
+   * Caputra la ubicación del marcador y la asigna al input
+   */
+function setMarkPosition(){
+position=mark.getPosition();
+addressInput=document.getElementById("rfgeoaddress");
+addressInput.value=`https://www.google.com/maps/search/?api=1&query=${position.lat()},${position.lng()}`;
+}
+/**
  * Crea el marcador en la posición georeferenciada
  * @param map 
  * @param pos 
  */
 function setMarker(map, pos){
-
-    mark=new google.maps.Marker({
-        position:pos,
-        map,
-        title:"Usted está aqui",
-        draggable:true,
-    });
-    /**
-     * captura la nueva ubicación cuando termina de moverse el marcador
-     */
-    google.maps.event.addListener(mark, 'dragend',()=>{
-        position=mark.getPosition();
-        addressInput=document.getElementById("rfgeoaddress");
-        addressInput.value=`https://www.google.com/maps/search/?api=1&query=${position.lat()},${position.lng()}`;
-        infoWindow.open(map, mark);
-        
-    });
-    /**
-     * Muestra el infowindow al pasar el currsor sobre el marcador
-     */
-    google.maps.event.addListener(mark, 'mouseover',()=>{
-        infoWindow.open(map, mark);
-    });
-    /**
-     * oculta el infowindow al ser arrastrado
-     */
-     google.maps.event.addListener(mark, 'drag',()=>{
-      infoWindow.close();
+  if(mark!=null){
+    mark.setMap(null); 
+    mark=null;
+  }
+  mark=new google.maps.Marker({
+      position:pos,
+      map,
+      draggable:true,
   });
-    /**
-     * cierra el infowindow cundo el cursor sale del marcador
-     */
-    google.maps.event.addListener(mark, 'mouseout',()=>{
-        infoWindow.close();
-    })
+  setMarkPosition();
+  /**
+   * captura la nueva ubicación cuando termina de moverse el marcador
+   */
+  google.maps.event.addListener(mark, 'dragend',()=>{
+    setMarkPosition();
+    infoWindow.open(map, mark);
+  });
+  /**
+   * Muestra el infowindow al pasar el currsor sobre el marcador
+   */
+  google.maps.event.addListener(mark, 'mouseover',()=>{
+      infoWindow.open(map, mark);
+  });
+  /**
+   * oculta el infowindow al ser arrastrado
+   */
+    google.maps.event.addListener(mark, 'drag',()=>{
+    infoWindow.close();
+  });
+  /**
+   * cierra el infowindow cundo el cursor sale del marcador
+   */
+  google.maps.event.addListener(mark, 'mouseout',()=>{
+      infoWindow.close();
+  })
     
 }
